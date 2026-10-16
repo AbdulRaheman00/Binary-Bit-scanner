@@ -1,0 +1,11 @@
+{
+  "meta": {
+    "target": "C:\\Users\\temp6\\Desktop\\mcp-security-auditor\\demo\\clean_server.py",
+    "when": "2026-10-16 11:01 UTC",
+    "modules": [
+      "static"
+    ],
+    "verdict": "PASS (fail-on: never)"
+  },
+  "findings": []
+}

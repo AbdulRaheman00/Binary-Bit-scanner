@@ -1,0 +1,57 @@
+{
+  "meta": {
+    "target": "C:\\Users\\temp6\\Desktop\\mcp-security-auditor\\demo\\vuln_server.py",
+    "when": "2026-10-16 11:01 UTC",
+    "modules": [
+      "static"
+    ],
+    "verdict": "PASS (fail-on: never)"
+  },
+  "findings": [
+    {
+      "id": "CMD-002",
+      "severity": "high",
+      "category": "static",
+      "location": "C:\\Users\\temp6\\Desktop\\mcp-security-auditor\\demo\\vuln_server.py:16",
+      "title": "os.system / os.popen call",
+      "evidence": "return os.popen(\"echo \" + cmd).read()",
+      "fix": "Use subprocess.run([...]) with an argument list."
+    },
+    {
+      "id": "DES-001",
+      "severity": "high",
+      "category": "static",
+      "location": "C:\\Users\\temp6\\Desktop\\mcp-security-auditor\\demo\\vuln_server.py:20",
+      "title": "Unsafe deserialization (pickle)",
+      "evidence": "return pickle.loads(blob)",
+      "fix": "Use JSON or another data-only format."
+    },
+    {
+      "id": "SEC-004",
+      "severity": "high",
+      "category": "static",
+      "location": "C:\\Users\\temp6\\Desktop\\mcp-security-auditor\\demo\\vuln_server.py:7",
+      "title": "API key (sk-...)",
+      "evidence": "API_KEY = \"sk-live-9f8e7d6c5b4a39281706f5e4d3c2b1a0\"",
+      "fix": "Move it to an env var and rotate the key."
+    },
+    {
+      "id": "SEC-005",
+      "severity": "medium",
+      "category": "static",
+      "location": "C:\\Users\\temp6\\Desktop\\mcp-security-auditor\\demo\\vuln_server.py:7",
+      "title": "Hardcoded secret-looking value",
+      "evidence": "API_KEY = \"sk-live-9f8e7d6c5b4a39281706f5e4d3c2b1a0\"",
+      "fix": "Load it from the environment at runtime."
+    },
+    {
+      "id": "NET-001",
+      "severity": "low",
+      "category": "static",
+      "location": "C:\\Users\\temp6\\Desktop\\mcp-security-auditor\\demo\\vuln_server.py:24",
+      "title": "Outbound network access",
+      "evidence": "return urllib.request.urlopen(url).read().decode()",
+      "fix": "Restrict to an allowlist of hosts and document it."
+    }
+  ]
+}

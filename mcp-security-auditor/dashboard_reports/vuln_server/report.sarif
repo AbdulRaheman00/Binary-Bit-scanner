@@ -1,0 +1,178 @@
+{
+  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "mcp-scanner",
+          "version": "3.0",
+          "rules": [
+            {
+              "id": "CMD-002",
+              "name": "os.system / os.popen call",
+              "shortDescription": {
+                "text": "os.system / os.popen call"
+              },
+              "help": {
+                "text": "Use subprocess.run([...]) with an argument list."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              }
+            },
+            {
+              "id": "DES-001",
+              "name": "Unsafe deserialization (pickle)",
+              "shortDescription": {
+                "text": "Unsafe deserialization (pickle)"
+              },
+              "help": {
+                "text": "Use JSON or another data-only format."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              }
+            },
+            {
+              "id": "SEC-004",
+              "name": "API key (sk-...)",
+              "shortDescription": {
+                "text": "API key (sk-...)"
+              },
+              "help": {
+                "text": "Move it to an env var and rotate the key."
+              },
+              "defaultConfiguration": {
+                "level": "error"
+              }
+            },
+            {
+              "id": "SEC-005",
+              "name": "Hardcoded secret-looking value",
+              "shortDescription": {
+                "text": "Hardcoded secret-looking value"
+              },
+              "help": {
+                "text": "Load it from the environment at runtime."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              }
+            },
+            {
+              "id": "NET-001",
+              "name": "Outbound network access",
+              "shortDescription": {
+                "text": "Outbound network access"
+              },
+              "help": {
+                "text": "Restrict to an allowlist of hosts and document it."
+              },
+              "defaultConfiguration": {
+                "level": "note"
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "CMD-002",
+          "level": "error",
+          "message": {
+            "text": "os.system / os.popen call at C:\\Users\\temp6\\Desktop\\mcp-security-auditor\\demo\\vuln_server.py:16. Evidence: return os.popen(\"echo \" + cmd).read(). Fix: Use subprocess.run([...]) with an argument list."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "C:/Users/temp6/Desktop/mcp-security-auditor/demo/vuln_server.py"
+                },
+                "region": {
+                  "startLine": 16
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "DES-001",
+          "level": "error",
+          "message": {
+            "text": "Unsafe deserialization (pickle) at C:\\Users\\temp6\\Desktop\\mcp-security-auditor\\demo\\vuln_server.py:20. Evidence: return pickle.loads(blob). Fix: Use JSON or another data-only format."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "C:/Users/temp6/Desktop/mcp-security-auditor/demo/vuln_server.py"
+                },
+                "region": {
+                  "startLine": 20
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SEC-004",
+          "level": "error",
+          "message": {
+            "text": "API key (sk-...) at C:\\Users\\temp6\\Desktop\\mcp-security-auditor\\demo\\vuln_server.py:7. Evidence: API_KEY = \"sk-live-9f8e7d6c5b4a39281706f5e4d3c2b1a0\". Fix: Move it to an env var and rotate the key."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "C:/Users/temp6/Desktop/mcp-security-auditor/demo/vuln_server.py"
+                },
+                "region": {
+                  "startLine": 7
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "SEC-005",
+          "level": "warning",
+          "message": {
+            "text": "Hardcoded secret-looking value at C:\\Users\\temp6\\Desktop\\mcp-security-auditor\\demo\\vuln_server.py:7. Evidence: API_KEY = \"sk-live-9f8e7d6c5b4a39281706f5e4d3c2b1a0\". Fix: Load it from the environment at runtime."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "C:/Users/temp6/Desktop/mcp-security-auditor/demo/vuln_server.py"
+                },
+                "region": {
+                  "startLine": 7
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "NET-001",
+          "level": "note",
+          "message": {
+            "text": "Outbound network access at C:\\Users\\temp6\\Desktop\\mcp-security-auditor\\demo\\vuln_server.py:24. Evidence: return urllib.request.urlopen(url).read().decode(). Fix: Restrict to an allowlist of hosts and document it."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "C:/Users/temp6/Desktop/mcp-security-auditor/demo/vuln_server.py"
+                },
+                "region": {
+                  "startLine": 24
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
